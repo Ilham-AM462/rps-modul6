@@ -24,6 +24,7 @@ def predict_image(img_path):
     pred_label = np.argmax(predictions)
     pred_prob = predictions[0][pred_label]
 
+    pred_prob = f"{pred_prob:.0%}"
     pred_time = round(end_time - start_time, 3)
     return pred_label, pred_prob, pred_time
 
@@ -42,10 +43,10 @@ def predict():
         return render_template('index.html', error='No selected file')
 
     if file:
-        file_path = 'static/uploads' + file.filename
+        file_path = 'static/upload ' + file.filename
         file.save(file_path)
         pred_label, pred_prob, pred_time = predict_image(file_path)
-        label_mapping = {0: 'paper', 1: 'rock', 2: 'scissors'}  # Ganti sesuai dengan kelas model Anda
+        label_mapping = {0: 'paper', 1: 'rock', 2: 'scissors'}
         pred_label_str = label_mapping.get(pred_label, 'Unknown Class')
         return render_template('predict.html', file_path=file_path, pred_label=pred_label_str, pred_prob=pred_prob, pred_time=pred_time)
 
