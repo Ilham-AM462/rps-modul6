@@ -43,7 +43,7 @@ def predict():
         return render_template('index.html', error='No selected file')
 
     if file:
-        file_path = 'static/upload ' + file.filename
+        file_path = 'static/upload' + file.filename
         file.save(file_path)
         pred_label, pred_prob, pred_time = predict_image(file_path)
         label_mapping = {0: 'paper', 1: 'rock', 2: 'scissors'}
